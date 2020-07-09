@@ -30,8 +30,7 @@ public class UserService {
 	
 	public int updateUser(UserVo userVo) {
 		System.out.println("UserService:update");
-		
-		
+				
 		return userDao.updateUser(userVo);
 	}
 
