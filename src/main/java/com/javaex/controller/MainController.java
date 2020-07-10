@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class MainController {
 	
 	@RequestMapping(value="/main", method = {RequestMethod.GET, RequestMethod.POST})
-	public String test() {
+	public String index() {
 		System.out.println("main>main()");
 		
 		return "main/index"; //뷰 리졸버 확인할 것!

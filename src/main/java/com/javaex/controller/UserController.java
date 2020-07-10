@@ -20,7 +20,7 @@ public class UserController {
 	
 	@RequestMapping("/joinForm")
 	public String joinForm() {
-		System.out.println("userController:joinForm");
+		System.out.println("UserController:joinForm");
 		
 		return "user/joinForm";
 		
@@ -28,7 +28,7 @@ public class UserController {
 	
 	@RequestMapping("/join")
 	public String join(@ModelAttribute UserVo userVo) {
-		System.out.println("userController:join");
+		System.out.println("UserController:join");
 		
 		// UserService userService = new UserService(); 위에 @Autowired 로 대신함.
 		userService.join(userVo);
@@ -40,7 +40,7 @@ public class UserController {
 
 	@RequestMapping("/loginForm")
 	public String loginForm() {
-		System.out.println("userController:loginForm");
+		System.out.println("UserController:loginForm");
 		
 		return "user/loginForm";
 		
@@ -48,7 +48,7 @@ public class UserController {
 	
 	@RequestMapping("/login")
 	public String login(@ModelAttribute UserVo userVo, HttpSession session) {
-		System.out.println("userController:login");
+		System.out.println("UserController:login");
 		
 		// UserService userService = new UserService(); 위에 @Autowired 로 대신함.
 		
