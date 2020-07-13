@@ -24,13 +24,13 @@ public class GuestbookDao {
 	public int addGuest(GuestVo guestVo) {
 		System.out.println("guestbookDao:addGuest");
 		
-		return sqlSession.insert("addGuest", guestVo);		
+		return sqlSession.insert("guest.addGuest", guestVo);		
 	}
 	
 	public int delGuest(GuestVo guestVo) {
 		System.out.println("");
 		
-		return sqlSession.delete("delGuest", guestVo);				
+		return sqlSession.delete("guest.delGuest", guestVo);				
 	}
 	
 }
