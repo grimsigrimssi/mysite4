@@ -52,7 +52,8 @@ public class FileUploadService {
 		//no:
 		//orgName:LeeHoRi.jpg
 		//saveName:1595320436848f8e03aa2-ff27-42ac-854c-5fb99dc828a6.jpg
-		//filePath:c\\javaStudy\
+		//filePath:c\\javaStudy\\upload\\1595320436848f8e03aa2-ff27-42ac-854c-5fb99dc828a6.jpg
+		//fileSize: 21865
 		
 		return saveName;
 	}
