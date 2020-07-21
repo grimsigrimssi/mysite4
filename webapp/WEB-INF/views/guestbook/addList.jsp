@@ -13,42 +13,44 @@
 
 <body>
 	<div id="wrap">
-	
+
 		<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 		<!-- //header -->
 		<!-- //nav -->
-	
-		<c:import url="/WEB-INF/views/include/userAside.jsp"></c:import>
+
+		<c:import url="/WEB-INF/views/include/guestAside.jsp"></c:import>
 		<!-- //aside -->
 
+
 		<div id="content">
+			
 			<div id="content-head">
-				<h3>일반방명록</h3>
-				<div id="location">
-					<ul>
-						<li>홈</li>
-						<li>방명록</li>
-						<li class="last">일반방명록</li>			
-					</ul>		
-				</div>
-			<div class="clear"></div>
-       	</div>
-       	<!-- //content-head -->
-					
-		<div id="guestbook">		
-				<form action="${pageContext.request.contextPath}/guestbook/addGuest" method="get">
-				 	<table id="guestAdd">
+            	<h3>일반방명록</h3>
+            	<div id="location">
+            		<ul>
+            			<li>홈</li>
+            			<li>방명록</li>
+            			<li class="last">일반방명록</li>
+            		</ul>
+            	</div>
+                <div class="clear"></div>
+            </div>
+            <!-- //content-head -->
+
+			<div id="guestbook">
+				<form action="${pageContext.request.contextPath }/guestbook/write" method="get">
+					<table id="guestAdd">
 						<colgroup>
 							<col style="width: 70px;">
 							<col>
 							<col style="width: 70px;">
 							<col>
-						</colgroup>	
-						<tbody>						
-							<tr> 
-								<th><label class="form-text" for="input-uname">이름</label></td>
+						</colgroup>
+						<tbody>
+							<tr>
+								<th><label class="form-text" for="input-uname">이름</label></th>
 								<td><input id="input-uname" type="text" name="name"></td>
-								<th><label class="form-text" for="input-pass">패스워드</label></td>
+								<th><label class="form-text" for="input-pass">패스워드</label></th>
 								<td><input id="input-pass"type="password" name="password"></td>
 							</tr>
 							<tr>
@@ -61,42 +63,42 @@
 						
 					</table>
 					<!-- //guestWrite -->
-										
-				</form>
+					
+				</form>	
 				
-				<c:forEach items="${requestScope.gList}" var="vo" varStatus="status">
+				<c:forEach items="${guestList}" var="guestVo">
 					<table class="guestRead">
 						<colgroup>
 							<col style="width: 10%;">
 							<col style="width: 40%;">
 							<col style="width: 40%;">
 							<col style="width: 10%;">
-						</colgroup>		
+						</colgroup>
 						<tr>
-							<td>${vo.no}</td>
-							<td>${vo.name}</td>
-							<td>${vo.regDate}</td>
-							<td><a href="${pageContext.request.contextPath}/guestbook/deleteForm?no=${vo.no}">삭제</a></td>
+							<td>${guestVo.no }</td>
+							<td>${guestVo.name }</td>
+							<td>${guestVo.regDate }</td>
+							<td><a href="${pageContext.request.contextPath }/guestbook/deleteForm?no=${guestVo.no}">[삭제]</a></td>
 						</tr>
 						<tr>
-						 	<td colspan="4" class="text-left">${vo.content}</td>
+							<td colspan=4 class="text-left">${guestVo.content }</td>
 						</tr>
 					</table>
-					<!-- //guestRead -->	
-				</c:forEach>							
-											
+					<!-- //guestRead -->
+				</c:forEach>
+				
 			</div>
 			<!-- //guestbook -->
-
 		</div>
-		<!-- //content -->
+		<!-- //content  -->
 		<div class="clear"></div>
 		
 		<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 		<!-- //footer -->
-	
+
 	</div>
 	<!-- //wrap -->
 
 </body>
+
 </html>

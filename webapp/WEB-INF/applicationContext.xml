@@ -65,5 +65,6 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 		class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
+	
 
 </beans>

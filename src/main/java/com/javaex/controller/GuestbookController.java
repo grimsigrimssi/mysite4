@@ -10,55 +10,63 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.javaex.service.GuestService;
+import com.javaex.service.GuestbookService;
 import com.javaex.vo.GuestVo;
 
 @Controller
-@RequestMapping("/guestbook")
+@RequestMapping(value="/guestbook")
 public class GuestbookController {
 	
 	@Autowired
-	private GuestService guestService;
+	private GuestbookService guestbookService;
 
-	@RequestMapping("/addList")
-	public String addList(Model model) {
-		System.out.println("GuestbookController:addList");
+	//방명록 리스트 가져오기
+	@RequestMapping(value="/list")
+	public String list(Model model){
+		System.out.println("guestbookController/list");
 		
-		List<GuestVo> gList = guestService.getList();
+		//서비스를 통해 모든 방명록 글 가져오기
+		List<GuestVo> guestList = guestbookService.list();
 		
-		model.addAttribute("gList", gList);
+		//Dispacher Servlet에 방명록 글 리스트 전달
+		model.addAttribute("guestList", guestList);
 		
 		return "guestbook/addList";
 	}
 	
-	@RequestMapping("/addGuest")
-	public String addGuest(@ModelAttribute GuestVo guestVo) {
-		System.out.println("GuestbookController:addGuest");
-		System.out.println(guestVo.toString());
+	//방명록 글 저장
+	@RequestMapping(value="/write")
+	public String write(@ModelAttribute GuestVo guestbookVo){
+		System.out.println("guestbookController/write");
 		
-		guestService.addGuest(guestVo);
-		
-		return "redirect:/guestbook/addList";
+		guestbookService.write(guestbookVo);
+		return "redirect:/guestbook/list";
 	}
 	
-	
-	@RequestMapping("/deleteForm")
-	public String deleteForm(@RequestParam("no") int no, Model model) {
-		System.out.println("GuestbookController:deleteForm");
-		
-		model.addAttribute("no", no);
+	//방명록 삭제 폼
+	@RequestMapping(value="/deleteForm")
+	public String deleteform(){
+		System.out.println("guestbookController/deleteform");
 		
 		return "guestbook/deleteForm";
 	}
 	
+	//방명록 삭제
+	@RequestMapping(value="/delete")
+	public String delete(@ModelAttribute GuestVo guestbookVo){
+		System.out.println("guestbookController/delete");
+		
+		guestbookService.remove(guestbookVo);
+		return "redirect:/guestbook/list";
+	}
 	
-	@RequestMapping("/delGuest")
-	public String delGuest(@ModelAttribute GuestVo guestVo) {
-		System.out.println("GuestController:delGuest");
-			
-		guestService.delGuest(guestVo);
-				
-		return "redirect:/guestbook/addList";	
+	
+	//ajax 방명록
+	@RequestMapping(value="/ajaxList")
+	public String ajaxList() {
+		System.out.println("guestbookController/ajaxList");
+		
+		return "guestbook/ajaxList";
 	}
 	
 }

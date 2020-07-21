@@ -10,27 +10,41 @@ import com.javaex.vo.GuestVo;
 
 @Repository
 public class GuestbookDao {
-	
+
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public List<GuestVo> selectList(){
-		System.out.println("guestbookDao:selectList");
-		List<GuestVo> gList =sqlSession.selectList("selectList");
+	//방명록 리스트 가져오기
+	public List<GuestVo> select(){
+		System.out.println("guestbookDao/select");
 		
-		return gList;		
+		return sqlSession.selectList("guestbook.select");
 	}
 	
-	public int addGuest(GuestVo guestVo) {
-		System.out.println("guestbookDao:addGuest");
+	//방명록 글 저장
+	public int insert(GuestVo guestbookVo){
+		System.out.println("guestbookDao/insert");
 		
-		return sqlSession.insert("guest.addGuest", guestVo);		
+		return sqlSession.insert("guestbook.insert", guestbookVo);	
 	}
 	
-	public int delGuest(GuestVo guestVo) {
-		System.out.println("");
+	//방명록 글 삭제
+	public int delete(GuestVo guestbookVo){
+		System.out.println("guestbookDao/delete");
 		
-		return sqlSession.delete("guest.delGuest", guestVo);				
+		return sqlSession.delete("guestbook.delete", guestbookVo);
+	}
+
+	//방명록 글 저장(ajax)
+	public void insertSelectKey(GuestVo guestbookVo) {
+		System.out.println(guestbookVo.toString()); //no값 없음
+		sqlSession.insert("guestbook.insertSelectKey", guestbookVo);
+		System.out.println(guestbookVo.toString()); //no값 있음
+	}
+	
+	//글가져오기(ajax 자신이 등록한 글)
+	public GuestVo selectByNo(int no) {
+		return sqlSession.selectOne("guestbook.selectByNo", no);
 	}
 	
 }

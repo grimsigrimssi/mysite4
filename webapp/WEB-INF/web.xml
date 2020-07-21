@@ -36,6 +36,7 @@
 	</context-param>
 
 
+
 	<!-- 한글처리 -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
@@ -56,5 +57,6 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
 
 </web-app>

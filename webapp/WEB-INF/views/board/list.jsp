@@ -1,23 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="/mysite2/assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="/mysite2/assets/css/board.css" rel="stylesheet" type="text/css">
+<title>Insert title here</title>
+<link href="${pageContext.request.contextPath }/assets/css/mysite.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath }/assets/css/board.css" rel="stylesheet" type="text/css">
+
 </head>
+
 
 <body>
 	<div id="wrap">
-	
-		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
-		<!-- //header & navi -->
 
-		<c:import url="/WEB-INF/views/includes/asideUser.jsp"></c:import>
+		<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
+		<!-- //header -->
+		<!-- //nav -->
+
+		<c:import url="/WEB-INF/views/include/boardAside.jsp"></c:import>
 		<!-- //aside -->
 
 		<div id="content">
@@ -36,97 +38,76 @@
 			<!-- //content-head -->
 
 			<div id="board">
-			
 				<div id="list">
-				
-					<form action="/WEB-INF/views/board/list.jsp" method="get">
+					<form action="${pageContext.request.contextPath }/board/list" method="get">
 						<div class="form-group text-right">
-							<input type="text">
+							<input type="text" name="keyword">
 							<button type="submit" id=btn_search>검색</button>
 						</div>
-						
-						<input type="hidden" name="action" value="listSearch">
 					</form>
-					
-					<c:forEach items="${bList }" var="vo" varStatus="status">
-					<table class="boardRead">
+					<table >
 						<thead>
 							<tr>
-								<th>${vo.no }</th>
-								<th>${vo.title }</th>
-								<th>${vo.name }</th>
-								<th>${vo.hit }</th>
-								<th>${vo.reg_date }</th>
-								<th>${vo.user_no }</th>
+								<th>번호</th>
+								<th>제목</th>
+								<th>글쓴이</th>
+								<th>조회수</th>
+								<th>작성일</th>
+								<th>관리</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>123</td>
-								<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
-								<td>정우성</td>
-								<td>1232</td>
-								<td>2020-12-23</td>
-								<td><a href="">[삭제]</a></td>
-							</tr>
-							<tr>
-								<td>123</td>
-								<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
-								<td>정우성</td>
-								<td>1232</td>
-								<td>2020-12-23</td>
-								<td><a href="">[삭제]</a></td>
-							</tr>
-							<tr>
-								<td>123</td>
-								<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
-								<td>정우성</td>
-								<td>1232</td>
-								<td>2020-12-23</td>
-								<td><a href="">[삭제]</a></td>
-							</tr>
-							<tr>
-								<td>123</td>
-								<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
-								<td>정우성</td>
-								<td>1232</td>
-								<td>2020-12-23</td>
-								<td><a href="">[삭제]</a></td>
-							</tr>
-							<tr class="last">
-								<td>123</td>
-								<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
-								<td>정우성</td>
-								<td>1232</td>
-								<td>2020-12-23</td>
-								<td><a href="">[삭제]</a></td>
-							</tr>
+							<c:forEach items="${boardList}" var="boardVo">
+								<tr>
+									<td>${boardVo.no }</td>
+									<td class="text-left"><a href="${pageContext.request.contextPath }/board/read/${boardVo.no}">${boardVo.title }</a></td>
+									<td>${boardVo.userName}</td>
+									<td>${boardVo.hit}</td>
+									<td>${boardVo.regDate}</td>
+									<td>
+										<c:if test="${boardVo.userNo == authUser.no}">
+											<a href="${pageContext.request.contextPath}/board/delete?no=${boardVo.no}">[삭제]</a>
+										</c:if>
+									</td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
-					<!-- boardRead -->
-					</c:forEach>	
 		
 					<div id="paging">
 						<ul>
-							<li><a href="">◀</a></li>
-							<li><a href="">1</a></li>
-							<li><a href="">2</a></li>
-							<li><a href="">3</a></li>
-							<li><a href="">4</a></li>
-							<li class="active"><a href="">5</a></li>
-							<li><a href="">6</a></li>
-							<li><a href="">7</a></li>
-							<li><a href="">8</a></li>
-							<li><a href="">9</a></li>
-							<li><a href="">10</a></li>
-							<li><a href="">▶</a></li>
+							<c:if test="${pMap.prev == true}">
+								<li><a href="${pageContext.request.contextPath}/board/list2?crtPage">◀</a></li>
+							</c:if>
+							
+							<c:forEach begin="${pMap.startPageBtnNo}" end="${pMap.endPageBtnNo }" step="1" var="page">
+								<c:choose>
+									<c:when test="${param.crtPage eq page}">
+										<li class="active">
+											<a href="${pageContext.request.contextPath}/board/list2?crtPage">${page}</a>
+										</li>
+									</c:when>
+								</c:choose>
+								<c:otherwise>
+									<li class="">
+										<a href="">${page}</a>
+									</li>
+								
+								</c:otherwise>			
+							</c:forEach>
+							
+							<c:if test="${pMap.next == true}">
+								<li><a href="${pageContext.request.contextPath}/board/list2?crtPage=${pMap.enPageBtnNo+1}">▶</a></li>
+							</c:if>
 						</ul>
 						
 						
 						<div class="clear"></div>
 					</div>
-					<a id="btn_write" href="">글쓰기</a>
-				
+					
+					<c:if test="${!empty authUser}">
+						<a id="btn_write" href="${pageContext.request.contextPath}/board/writeForm">글쓰기</a>
+					</c:if>
 				</div>
 				<!-- //list -->
 			</div>
@@ -135,10 +116,12 @@
 		<!-- //content  -->
 		<div class="clear"></div>
 
-		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
+		<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 		<!-- //footer -->
+
 	</div>
 	<!-- //wrap -->
 
 </body>
+
 </html>

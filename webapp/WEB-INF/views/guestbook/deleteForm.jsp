@@ -14,11 +14,12 @@
 <body>
 	<div id="wrap">
 
-		<!-- //header -->
 		<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
+		<!-- //header -->
+		<!-- //nav -->
 
+		<c:import url="/WEB-INF/views/include/guestAside.jsp"></c:import>
 		<!-- //aside -->
-		<c:import url="/WEB-INF/views/include/userAside.jsp"></c:import>
 
 		<div id="content">
 			
@@ -36,7 +37,7 @@
             <!-- //content-head -->
 
 			<div id="guestbook">
-				<form action="${pageContext.request.contextPath}/guestbook/delGuest" method="get">
+				<form action="${pageContext.request.contextPath }/guestbook/delete" method="get">
 					<table id="guestDelete">
 						<colgroup>
 							<col style="width: 10%;">
@@ -48,10 +49,10 @@
 							<td>비밀번호</td>
 							<td><input type="password" name="password"></td>
 							<td class="text-left"><button type="submit">삭제</button></td>
-							<td><a href="${pageContext.request.contextPath}/guestbook/addList">[메인으로 돌아가기]</a></td>
+							<td><a href="${pageContext.request.contextPath }/guestbook/list">[메인으로 돌아가기]</a></td>
 						</tr>
 					</table>
-					<input type='hidden' name="no" value=${param.no }>
+					<input type="text" name="no" value="${param.no }">
 				</form>
 				
 			</div>
@@ -62,9 +63,10 @@
 		
 		<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 		<!-- //footer -->
-		
+
 	</div>
 	<!-- //wrap -->
-	
+
 </body>
+
 </html>
