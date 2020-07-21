@@ -24,7 +24,7 @@ public class FileUploadController {
 	}
 	
 	@RequestMapping("/upload")
-	public String uplaod(@RequestParam("file") MultipartFile file, Model model) {
+	public String upload(@RequestParam("file") MultipartFile file, Model model) {
 		System.out.println("FileUploadController/upload");
 		System.out.println(file.getOriginalFilename());
 		
